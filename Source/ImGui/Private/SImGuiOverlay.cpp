@@ -254,7 +254,16 @@ public:
 
 		ImGuiIO& IO = ImGui::GetIO();
 
-		IO.AddMouseSourceEvent(Event.IsTouchEvent() ? ImGuiMouseSource_TouchScreen : ImGuiMouseSource_Mouse);
+        if(Event.IsTouchEvent())
+        {
+            IO.AddMouseSourceEvent(ImGuiMouseSource_TouchScreen);
+            const FVector2f Position = Event.GetScreenSpacePosition();
+            IO.AddMousePosEvent(Position.X, Position.Y);
+        }
+        else
+        {
+            IO.AddMouseSourceEvent(ImGuiMouseSource_Mouse);
+        }
 
 		const FKey Button = Event.GetEffectingButton();
 		if (Button == EKeys::LeftMouseButton)
