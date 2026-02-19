@@ -511,6 +511,15 @@ void FImGuiContext::Disconnect()
 }
 #endif
 
+bool FImGuiContext::ShouldSilenceInputEvents() const
+{
+#if WITH_NETIMGUI
+	return bIsRemote;
+#else
+	return false;
+#endif
+}
+
 FImGuiContext::operator ImGuiContext*() const
 {
 	return Context;

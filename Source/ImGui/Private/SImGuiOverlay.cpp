@@ -314,6 +314,11 @@ public:
 		}
 #endif
 
+		if (Owner->GetContext()->ShouldSilenceInputEvents())
+		{
+			return false;
+		}
+
 		if (Event.IsKeyEvent())
 		{
 			const FImGuiViewportData* FocusedViewport = FindViewportForWindow(LastFocusedWindow.Pin());
