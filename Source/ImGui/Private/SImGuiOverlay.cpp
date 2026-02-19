@@ -285,8 +285,7 @@ public:
 			return false;
 		}
 #endif
-
-		return true;
+		return !Owner->GetContext()->ShouldSilenceInputEvents();
 	}
 
 private:

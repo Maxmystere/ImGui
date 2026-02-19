@@ -52,6 +52,8 @@ public:
 	void Disconnect();
 #endif
 
+	bool ShouldSilenceInputEvents() const;
+
 	/// Access to the underlying ImGui context
 	operator ImGuiContext*() const;
 
