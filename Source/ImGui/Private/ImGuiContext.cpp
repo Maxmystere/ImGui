@@ -1,5 +1,7 @@
 #include "ImGuiContext.h"
 
+#ifndef IMGUI_DISABLE
+
 #include <Framework/Application/SlateApplication.h>
 #include <HAL/LowLevelMemTracker.h>
 #include <HAL/PlatformApplicationMisc.h>
@@ -11,7 +13,6 @@
 #include <Widgets/SWindow.h>
 
 #if WITH_ENGINE
-#include <ImageUtils.h>
 #include <RHITypes.h>
 #include <UObject/Package.h>
 #else
@@ -447,7 +448,13 @@ FImGuiContext::~FImGuiContext()
 			}
 		}
 
+		ImGuiContext* PrevContext = ImGui::GetCurrentContext();
+		ImGui::SetCurrentContext(Context);
+
+		ImGui::DestroyPlatformWindows();
 		ImGui::DestroyContext(Context);
+
+		ImGui::SetCurrentContext(PrevContext);
 		Context = nullptr;
 	}
 }
@@ -741,3 +748,5 @@ void FImGuiContext::EndFrame()
 		ImGui::RenderPlatformWindowsDefault();
 	}
 }
+
+#endif // #ifndef IMGUI_DISABLE

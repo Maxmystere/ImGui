@@ -1,5 +1,7 @@
 ﻿#include "SImGuiOverlay.h"
 
+#ifndef IMGUI_DISABLE
+
 #include <Framework/Application/SlateApplication.h>
 
 #include "ImGuiContext.h"
@@ -185,7 +187,7 @@ public:
 				TargetViewport = FindViewportForWindow(LastWidgetsUnderPointer.Window.Pin());
 			}
 
-			if (!TargetViewport && !ImGui::IsMouseDragging(0))
+			if (!TargetViewport && !ImGui::IsMouseDown(0))
 			{
 				IO.AddMousePosEvent(-FLT_MAX, -FLT_MAX);
 				return false;
@@ -477,7 +479,7 @@ FReply SImGuiOverlay::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEve
 
 	ImGuiIO& IO = ImGui::GetIO();
 
-	IO.AddInputCharacter(CharCast<ANSICHAR>(Event.GetCharacter()));
+	IO.AddInputCharacter(Event.GetCharacter());
 
 	return IO.WantTextInput ? FReply::Handled() : FReply::Unhandled();
 }
@@ -491,3 +493,5 @@ void SImGuiOverlay::SetDrawData(const ImDrawData* InDrawData)
 {
 	DrawData = FImGuiDrawData(InDrawData);
 }
+
+#endif // #ifndef IMGUI_DISABLE

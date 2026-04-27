@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef IMGUI_DISABLE
+
 #include <Templates/SharedPointer.h>
 
 #if WITH_ENGINE
@@ -94,3 +96,5 @@ private:
 
 	TArray<FTextureRef> Textures;
 };
+
+#endif // #ifndef IMGUI_DISABLE
